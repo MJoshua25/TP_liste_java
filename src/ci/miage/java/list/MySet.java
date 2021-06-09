@@ -107,11 +107,25 @@ public class MySet extends List<SubSet> {
 	 *            valuer à ajouter.
 	 */
 	public void addNumber(int value) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		int rang = value / 256;
+		int reste = value % 256;
+		SmallSet f = new SmallSet();
+		f.add(reste);
+		Iterator<SubSet> iterator = this.iterator();
+		SubSet set = new SubSet(rang, f);
+		while(iterator.getValue().rank < rang){
+			iterator.goForward();
+		}
+		if(iterator.getValue().rank > rang){
+			iterator.addLeft(set);
+			iterator.goBackward();
+		}
+		else if(iterator.getValue().rank == rang){
+			iterator.getValue().set.add(reste);
+		}
+		else {
+			System.out.println("");
+		}
 	}
 
 	/**
