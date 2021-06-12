@@ -234,11 +234,29 @@ public class MySet extends List<SubSet> {
 	 *            deuxième ensemble
 	 */
 	public void difference(MySet set2) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		Iterator<SubSet> iterateur;
+		iterateur = this.iterator();
+		Iterator<SubSet> iterateur2;
+		iterateur2 = set2.iterator();
+
+		while (!iterateur.isOnFlag() || !iterateur2.isOnFlag()) {
+
+			if (iterateur.getValue().rank == iterateur2.getValue().rank) {
+				iterateur.getValue().set.difference(iterateur2.getValue().set);
+
+				if (iterateur.getValue().set.isEmpty()) {
+					iterateur.remove();
+				}
+
+				iterateur2.goForward();
+				iterateur.goForward();
+
+			} else if (iterateur.getValue().rank > iterateur2.getValue().rank) {
+				iterateur2.goForward();
+			} else {
+				iterateur.goForward();
+			}
+		}
 	}
 
 	/**
