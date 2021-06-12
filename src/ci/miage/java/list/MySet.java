@@ -246,11 +246,10 @@ public class MySet extends List<SubSet> {
 
 				if (iterateur.getValue().set.isEmpty()) {
 					iterateur.remove();
+				} else {
+					iterateur.goForward();
 				}
-
 				iterateur2.goForward();
-				iterateur.goForward();
-
 			} else if (iterateur.getValue().rank > iterateur2.getValue().rank) {
 				iterateur2.goForward();
 			} else {
@@ -281,8 +280,9 @@ public class MySet extends List<SubSet> {
 				iterateur.getValue().set.symmetricDifference(iterateur2.getValue().set.clone());
 				if (iterateur.getValue().set.isEmpty()) {
 					iterateur.remove();
+				} else {
+					iterateur.goForward();
 				}
-				iterateur.goForward();
 				iterateur2.goForward();
 			}
 		}
@@ -295,11 +295,26 @@ public class MySet extends List<SubSet> {
 	 *            deuxième ensemble
 	 */
 	public void intersection(MySet set2) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		Iterator<SubSet> iterateur = this.iterator();
+		Iterator<SubSet> iterateur2 = set2.iterator();
+
+		while (!iterateur.isOnFlag() || !iterateur2.isOnFlag()) {
+			if (iterateur.getValue().rank == iterateur2.getValue().rank) {
+				iterateur.getValue().set.intersection(iterateur2.getValue().set.clone());
+				iterateur2.goForward();
+				if (iterateur.getValue().set.isEmpty()) {
+					iterateur.remove();
+				} else {
+					iterateur.goForward();
+				}
+			} else {
+				if (iterateur.getValue().rank < iterateur2.getValue().rank) {
+					iterateur.remove();
+				} else {
+					iterateur2.goForward();
+				}
+			}
+		}
 	}
 
 	/**
