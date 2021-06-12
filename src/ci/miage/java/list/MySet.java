@@ -207,11 +207,19 @@ public class MySet extends List<SubSet> {
 	 */
 
 	public boolean contains(int value) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		int rang = value / 256;
+		int reste = value % 256;
+		Iterator<SubSet> iterateur = this.iterator();
+
+		while (rang > iterateur.getValue().rank) {
+			iterateur.goForward();
+		}
+
+		if (rang == iterateur.getValue().rank) {
+			return iterateur.getValue().set.contains(reste);
+
+		}
+
 		return false;
 	}
 
