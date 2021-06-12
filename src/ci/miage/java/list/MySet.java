@@ -168,9 +168,9 @@ public class MySet extends List<SubSet> {
 		while (rang > iterateur.getValue().rank) {
 			iterateur.goForward();
 		}
-		if (rang == iterateur.getValue().rank){
+		if (rang == iterateur.getValue().rank) {
 			iterateur.getValue().set.remove(reste);
-			if(iterateur.getValue().set.isEmpty()){
+			if (iterateur.getValue().set.isEmpty()) {
 				iterateur.remove();
 			}
 		}
