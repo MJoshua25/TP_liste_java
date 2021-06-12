@@ -180,12 +180,13 @@ public class MySet extends List<SubSet> {
 	 * @return taille de l'ensemble this
 	 */
 	public int size() {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
-		return 0;
+		int size = 0;
+		Iterator<SubSet> it = this.iterator();
+		while (!it.isOnFlag()) {
+			size += it.getValue().set.size();
+			it.goForward();
+		}
+		return size;
 	}
 
 
