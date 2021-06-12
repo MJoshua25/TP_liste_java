@@ -109,24 +109,22 @@ public class MySet extends List<SubSet> {
 	 *            valuer à ajouter.
 	 */
 	public void addNumber(int value) {
-		int rang = value / 256;
 		int reste = value % 256;
-		SmallSet f = new SmallSet();
-		f.add(reste);
-		Iterator<SubSet> iterator = this.iterator();
-		SubSet set = new SubSet(rang, f);
-		while(iterator.getValue().rank < rang){
-			iterator.goForward();
+		int rang = value / 256;
+		Iterator<SubSet> iterateur = this.iterator();
+		while (iterateur.getValue().rank < rang) {
+			iterateur.goForward();
 		}
-		if(iterator.getValue().rank > rang){
-			iterator.addLeft(set);
-			iterator.goBackward();
-		}
-		else if(iterator.getValue().rank == rang){
-			iterator.getValue().set.add(reste);
-		}
-		else {
-			System.out.println("");
+		if (iterateur.getValue().rank > rang) {
+			SmallSet ss;
+			ss = new SmallSet();
+			ss.add(reste);
+			iterateur.addLeft(new SubSet(rang, ss));
+			iterateur.goBackward();
+		} else if (iterateur.getValue().rank == rang) {
+			iterateur.getValue().set.add(reste);
+		} else {
+			System.out.println("Il y a une érreur!!!!!");
 		}
 	}
 
