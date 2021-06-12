@@ -364,13 +364,16 @@ public class MySet extends List<SubSet> {
 		} else if (!(o instanceof MySet)) {
 			b = false;
 		} else {
-			System.out.println();
-			System.out
-					.println("-------------------------------------------------");
-			System.out.println("Dernier cas à écrire");
-			System.out
-					.println("-------------------------------------------------");
-			System.out.println();
+			Iterator<SubSet> iterateur = this.iterator();
+			Iterator<SubSet> iterateur2 = ((MySet) o).iterator();
+
+			while(!iterateur.isOnFlag() || !iterateur2.isOnFlag()){
+				if(!iterateur.getValue().equals(iterateur2.getValue()))
+					b = false;
+				iterateur.goForward();
+				iterateur2.goForward();
+
+			}
 
 		}
 		return b;
