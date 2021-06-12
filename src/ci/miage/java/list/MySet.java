@@ -266,11 +266,26 @@ public class MySet extends List<SubSet> {
 	 *            deuxième ensemble
 	 */
 	public void symmetricDifference(MySet set2) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		Iterator<SubSet> iterateur = this.iterator();
+		Iterator<SubSet> iterateur2 = set2.iterator();
+
+		while (!iterateur.isOnFlag() || !iterateur2.isOnFlag()) {
+			if (iterateur.getValue().rank != iterateur2.getValue().rank) {
+				if (iterateur.getValue().rank > iterateur2.getValue().rank) {
+					iterateur.addLeft(iterateur2.getValue().clone());
+					iterateur2.goForward();
+				} else {
+					iterateur.goForward();
+				}
+			} else {
+				iterateur.getValue().set.symmetricDifference(iterateur2.getValue().set.clone());
+				if (iterateur.getValue().set.isEmpty()) {
+					iterateur.remove();
+				}
+				iterateur.goForward();
+				iterateur2.goForward();
+			}
+		}
 	}
 
 	/**
