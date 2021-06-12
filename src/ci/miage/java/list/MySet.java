@@ -146,11 +146,13 @@ public class MySet extends List<SubSet> {
 	 *            flux d'entrée
 	 */
 	public void remove(InputStream is) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		Scanner clavier = new Scanner(is);
+		int number;
+		number = clavier.nextInt();
+		while (number != -1) {
+			removeNumber(number);
+			number = clavier.nextInt();
+		}
 	}
 
 	/**
