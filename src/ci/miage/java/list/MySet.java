@@ -14,9 +14,9 @@ import ci.miage.java.list_util.List;
 import ci.miage.java.list_util.SmallSet;
 
 /**
- * @author Mickaël Foursov <foursov@univ-rennes1.fr>
+ * @author Josué Yao <jyao2000@yahoo.fr>
  * @version 5.0
- * @since 2018-10-02
+ * @since 2021-06-12
  */
 
 public class MySet extends List<SubSet> {
