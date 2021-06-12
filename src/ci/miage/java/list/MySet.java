@@ -85,7 +85,7 @@ public class MySet extends List<SubSet> {
 	/**
 	 * Ajouter à this toutes les valeurs prises dans is.
 	 * C'est une fonction auxiliaire pour add() et restore().
-	 * 
+	 *
 	 * @param is
 	 *            flux d'entrée.
 	 */
@@ -104,7 +104,7 @@ public class MySet extends List<SubSet> {
 
 	/**
 	 * Ajouter value à this.
-	 * 
+	 *
 	 * @param value
 	 *            valuer à ajouter.
 	 */
@@ -141,7 +141,7 @@ public class MySet extends List<SubSet> {
 
 	/**
 	 * Supprimer de this toutes les valeurs prises dans is.
-	 * 
+	 *
 	 * @param is
 	 *            flux d'entrée
 	 */
@@ -157,7 +157,7 @@ public class MySet extends List<SubSet> {
 
 	/**
 	 * Supprimer value de this.
-	 * 
+	 *
 	 * @param value
 	 *            valeur à supprimer
 	 */
@@ -229,7 +229,7 @@ public class MySet extends List<SubSet> {
 
 	/**
 	 * This devient la différence de this et set2.
-	 * 
+	 *
 	 * @param set2
 	 *            deuxième ensemble
 	 */
@@ -243,13 +243,13 @@ public class MySet extends List<SubSet> {
 
 			if (iterateur.getValue().rank == iterateur2.getValue().rank) {
 				iterateur.getValue().set.difference(iterateur2.getValue().set);
-
+				iterateur2.goForward();
 				if (iterateur.getValue().set.isEmpty()) {
 					iterateur.remove();
 				} else {
 					iterateur.goForward();
 				}
-				iterateur2.goForward();
+
 			} else if (iterateur.getValue().rank > iterateur2.getValue().rank) {
 				iterateur2.goForward();
 			} else {
@@ -260,7 +260,7 @@ public class MySet extends List<SubSet> {
 
 	/**
 	 * This devient la différence symétrique de this et set2.
-	 * 
+	 *
 	 * @param set2
 	 *            deuxième ensemble
 	 */
@@ -278,19 +278,20 @@ public class MySet extends List<SubSet> {
 				}
 			} else {
 				iterateur.getValue().set.symmetricDifference(iterateur2.getValue().set.clone());
+				iterateur2.goForward();
 				if (iterateur.getValue().set.isEmpty()) {
 					iterateur.remove();
 				} else {
 					iterateur.goForward();
 				}
-				iterateur2.goForward();
+
 			}
 		}
 	}
 
 	/**
 	 * This devient l'intersection de this et set2.
-	 * 
+	 *
 	 * @param set2
 	 *            deuxième ensemble
 	 */
@@ -319,7 +320,7 @@ public class MySet extends List<SubSet> {
 
 	/**
 	 * This devient l'union de this et set2.
-	 * 
+	 *
 	 * @param set2
 	 *            deuxième ensemble
 	 */
@@ -328,7 +329,7 @@ public class MySet extends List<SubSet> {
 		Iterator<SubSet> iterateur = this.iterator();
 		Iterator<SubSet> iterateur2 = set2.iterator();
 
-		while (!iterateur2.isOnFlag() && !iterateur.isOnFlag()) {
+		while (!iterateur2.isOnFlag()) {
 			if (iterateur.getValue().rank == iterateur2.getValue().rank) {
 				iterateur.getValue().set.union(iterateur2.getValue().set.clone());
 				iterateur.goForward();
@@ -351,7 +352,7 @@ public class MySet extends List<SubSet> {
 	/**
 	 * @param o
 	 *            deuxième ensemble
-	 * 
+	 *
 	 * @return true si les ensembles this et o sont égaux, false sinon
 	 */
 	@Override
@@ -385,12 +386,27 @@ public class MySet extends List<SubSet> {
 	 * @return true si this est inclus dans set2, false sinon
 	 */
 	public boolean isIncludedIn(MySet set2) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
-		return false;
+
+		Iterator<SubSet> iterateur = this.iterator();
+		Iterator<SubSet> iterateur2 = set2.iterator();
+
+		while (!iterateur.isOnFlag() || !iterateur2.isOnFlag()) {
+
+			if (iterateur.getValue().rank < iterateur2.getValue().rank) {
+				return false;
+			}
+			if (iterateur.getValue().rank > iterateur2.getValue().rank) {
+				iterateur2.goForward();
+			} else {
+				if (!iterateur.getValue().set.isIncludedIn(iterateur2.getValue().set)) {
+					return false;
+				} else {
+					iterateur.goForward();
+					iterateur2.goForward();
+				}
+			}
+		}
+		return true;
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////
@@ -506,7 +522,7 @@ public class MySet extends List<SubSet> {
 
 	/**
 	 * Imprimer this dans outFile.
-	 * 
+	 *
 	 * @param outFile
 	 *            flux de sortie
 	 */
