@@ -150,7 +150,7 @@ public class MySet extends List<SubSet> {
 		int number;
 		number = clavier.nextInt();
 		while (number != -1) {
-			removeNumber(number);
+			this.removeNumber(number);
 			number = clavier.nextInt();
 		}
 	}
@@ -162,11 +162,18 @@ public class MySet extends List<SubSet> {
 	 *            valeur à supprimer
 	 */
 	public void removeNumber(int value) {
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		int reste = value % 256;
+		int rang = value / 256;
+		Iterator<SubSet> iterateur = this.iterator();
+		while (rang > iterateur.getValue().rank) {
+			iterateur.goForward();
+		}
+		if (rang == iterateur.getValue().rank){
+			iterateur.getValue().set.remove(reste);
+			if(iterateur.getValue().set.isEmpty()){
+				iterateur.remove();
+			}
+		}
 	}
 
 	/**
