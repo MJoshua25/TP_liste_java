@@ -91,13 +91,15 @@ public class MySet extends List<SubSet> {
 	 */
 	public void add(InputStream is) {
 		int number;
-
-
-		System.out.println();
-		System.out.println("-------------------------------------------------");
-		System.out.println("Première fonction à écrire");
-		System.out.println("-------------------------------------------------");
-		System.out.println();
+		number = 1;
+		Scanner clavier;
+		clavier = new Scanner(is);
+		while (number != -1) {
+			number = clavier.nextInt();
+			if (number >= 0 && number <=32767){
+				this.addNumber(number);
+			}
+		}
 	}
 
 	/**
